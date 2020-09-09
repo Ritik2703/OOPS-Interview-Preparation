@@ -2,9 +2,13 @@
 # Hare Krishna
 # Radhe Radhe
 
+# https://wiki.sei.cmu.edu/confluence/display/cplusplus/
+
 # Basic Questions
 # In Depth 
 # Class and Object
+# SMA vs DMA
+# Constructor & destructor
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
 # 1. What is OOPs?
@@ -343,7 +347,7 @@ Static Memory is allocated for declared variables by the compiler. The address c
 # Dynamic Memory Allocation:
 Memory allocation done at the time of execution(run time) is known as dynamic memory allocation. Functions calloc() and malloc() support allocating dynamic memory. In the Dynamic allocation of memory space is allocated by using these functions when the value is returned by functions and assigned to pointer variables.
 
-<p align="center"><strong><u>Tabular Difference Between Static and Dynamic Memory Allocation in C</u>:</strong></p>
+<p align="center"><strong><u>Tabular Difference Between Static and Dynamic Memory Allocation</u>:</strong></p>
 <figure class="table">
 <table>
 <tbody>
@@ -417,3 +421,151 @@ Memory allocation done at the time of execution(run time) is known as dynamic me
 </table>
 </figure>
 <p></p>
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Constructor -
+
+A constructor is a member function of a class which initializes objects of a class. In C++, Constructor is automatically called when object(instance of class) create. It is special member function of the class.
+
+## How constructors are different from a normal member function?
+
+A constructor is different from normal functions in following ways:
+1. Constructor has same name as the class itself
+2. Constructors don’t have return type
+3. A constructor is automatically called when an object is created.( Default and Copy Constructor)
+4. If we do not specify a constructor, C++ compiler generates a default constructor for us (expects no parameters and has an empty body).
+
+## Types of Constructor-
+
+1. Default Constructor
+2. Parametrized Constructor
+3. Copy Constructor - The compiler created copy constructor works fine in general. We need to define our own copy constructor only if an object has pointers or any runtime allocation of the resource like file handle, a network connection..etc.
+
+# When is copy constructor called?
+
+In C++, a Copy Constructor may be called in following cases:
+1. When an object of the class is returned by value.
+2. When an object of the class is passed (to a function) by value as an argument.
+3. When an object is constructed based on another object of the same class.
+4. When the compiler generates a temporary object.
+
+# Shallow Copy vs Deep Copy-
+ Default constructor does only shallow copy.
+ ![shallow] (https://media.geeksforgeeks.org/wp-content/uploads/copy-constructor.png)
+
+Deep copy is possible only with user defined copy constructor. In user defined copy constructor, we make sure that pointers (or references) of copied object point to new memory locations.
+ ![Deep] (https://media.geeksforgeeks.org/wp-content/uploads/copy-constructor1.png) 
+
+# Copy constructor vs Assignment Operator
+Which of the following two statements call copy constructor and which one calls assignment operator?
+```
+MyClass t1, t2; 
+MyClass t3 = t1;  // ----> (1) 
+t2 = t1;          // -----> (2)  
+```
+
+Copy constructor is called when a new object is created from an existing object, as a copy of the existing object. Assignment operator is called when an already initialized object is assigned a new value from another existing object. In the above example (1) calls copy constructor and (2) calls assignment operator. 
+
+See this for more details.
+```
+ class krishna{
+   public:
+   krishna()
+   {
+   cout<<"Default Constructor";
+   }
+   Krishna(int k)
+   {
+   cout<<"Parametrized Constructor";
+   }
+   krishna( krishna &k)
+   {
+   cout<<"Copy Constructor";
+   }
+   krishna operator = (krishna &k)
+   {
+   cout<<"assignment operator";
+   }
+  };
+  int main()
+  {
+    Krishna k;
+    krishna k2(6);
+    krishna k3=k,k4;
+    k4=k;
+    return 0;
+   }
+ ```
+# Can we make copy constructor private?
+Yes, a copy constructor can be made private. When we make a copy constructor private in a class, objects of that class become non-copyable. This is particularly useful when our class has pointers or dynamically allocated resources. In such situations, we can either write our own copy constructor like above String example or make a private copy constructor so that users get compiler errors rather than surprises at runtime.
+
+# Why argument to a copy constructor must be passed as a reference?
+A copy constructor is called when an object is passed by value. Copy constructor itself is a function. So if we pass an argument by value in a copy constructor, a call to copy constructor would be made to call copy constructor which becomes a non-terminating chain of calls. Therefore compiler doesn’t allow parameters to be passed by value.
+
+# Why argument to a copy constructor should be const?
+so that objects are not accidentally modified
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Deconstructor
+Destructor is a member function which destructs or deletes an object.
+
+## When is destructor called?
+A destructor function is called automatically when the object goes out of scope:
+(1) the function ends
+(2) the program ends
+(3) a block containing local variables ends
+(4) a delete operator is called 
+## How destructors are different from a normal member function?
+Destructors have same name as the class preceded by a tilde (~)
+Destructors don’t take any argument and don’t return anything
+ 
+# Can there be more than one destructor in a class?
+No, there can only one destructor in a class with classname preceded by ~, no parameters and no return type.
+
+# When do we need to write a user-defined destructor?
+If we do not write our own destructor in class, compiler creates a default destructor for us. The default destructor works fine unless we have dynamically allocated memory or pointer in class. When a class contains a pointer to memory allocated in class, we should write a destructor to release memory before the class instance is destroyed. This must be done to avoid memory leak.
+
+# Can a destructor be virtual?
+Yes, In fact, it is always a good idea to make destructors virtual in base class when we have a virtual function.
+Deleting a derived class object using a pointer to a base class that has a non-virtual destructor results in undefined behavior. To correct this situation, the base class should be defined with a virtual destructor.
+
+'''
+// A program with virtual destructor 
+#include<iostream> 
+
+using namespace std; 
+
+class base { 
+public: 
+	base()	 
+	{ cout<<"Constructing base \n"; } 
+	virtual ~base() 
+	{ cout<<"Destructing base \n"; }	 
+}; 
+
+class derived: public base { 
+public: 
+	derived()	 
+	{ cout<<"Constructing derived \n"; } 
+	~derived() 
+	{ cout<<"Destructing derived \n"; } 
+}; 
+
+int main(void) 
+{ 
+derived *d = new derived(); 
+base *b = d; 
+delete b; 
+getchar(); 
+return 0; 
+} 
+```
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+ 
+    
+ 
+
