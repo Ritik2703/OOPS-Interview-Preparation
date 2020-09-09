@@ -9,6 +9,12 @@
 # Class and Object
 # SMA vs DMA
 # Constructor & destructor
+# Encapsulation
+# Access Modifier
+# Polymorphism
+# Inheritance
+# 
+
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
 # 1. What is OOPs?
@@ -575,23 +581,12 @@ Protected: Protected access modifier is similar to that of private access modifi
 
 # 8. What is Polymorphism? - https://www.geeksforgeeks.org/polymorphism-in-c/
 The word polymorphism means having many forms. In simple words, we can define polymorphism as the ability of a message to be displayed in more than one form.
-In C++ polymorphism is mainly divided into two types:
-
-Compile time Polymorphism
-Runtime Polymorphism
-
-![polymorphism](https://media.geeksforgeeks.org/wp-content/uploads/20200703160531/Polymorphism-in-CPP.png)
-
-# Compile time Polymorphism
-
-
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # 9. Define overloading and overriding in OOPs?
 
 Overloading is static binding, whereas overriding is productive binding. Overloading is the same method with different arguments, and it may or may not return the equal value in the same class itself.
 Overriding is the same method names with the same arguments and return types identified with the class and its child class.
+
 
 # 10. What are all the operators that cannot be overloaded?
 
@@ -600,7 +595,156 @@ The operators that cannot be overloaded are:
 Member Selection
 Scope Resolution
 Member selection through a pointer to a function
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------# 
+
+# In C++ polymorphism is mainly divided into two types:
+
+Compile time Polymorphism
+Runtime Polymorphism
+
+![polymorphism](https://media.geeksforgeeks.org/wp-content/uploads/20200703160531/Polymorphism-in-CPP.png)
+
+# Compile time Polymorphism
+This type of polymorphism is achieved by function overloading or operator overloading.
+
+## Function Overloading:
+When there are multiple functions with same name but different parameters then these functions are said to be overloaded. Functions can be overloaded by change in number of arguments or/and change in type of arguments.
+```
+// C++ program for function overloading 
+#include <bits/stdc++.h> 
+
+using namespace std; 
+class Krishna
+{ 
+	public: 
+	
+	// function with 1 int parameter 
+	void func(int x) 
+	{ 
+		cout << "value of x is " << x << endl; 
+	} 
+	
+	// function with same name but 1 double parameter 
+	void func(double x) 
+	{ 
+		cout << "value of x is " << x << endl; 
+	} 
+	
+	// function with same name and 2 int parameters 
+	void func(int x, int y) 
+	{ 
+		cout << "value of x and y is " << x << ", " << y << endl; 
+	} 
+}; 
+
+int main() { 
+	
+	Krishna obj1; 
+	
+	// Which function is called will depend on the parameters passed 
+	// The first 'func' is called 
+	obj1.func(7); 
+	
+	// The second 'func' is called 
+	obj1.func(9.132); 
+	
+	// The third 'func' is called 
+	obj1.func(85,64); 
+	return 0; 
+} 
+
+```
+In the above example, a single function named func acts differently in three different situations which is the property of polymorphism.
+
+## Operator Overloading: https://www.geeksforgeeks.org/operator-overloading-c/
+C++ also provide option to overload operators. For example, we can make the operator (‘+’) for string class to concatenate two strings. We know that this is the addition operator whose task is to add two operands. So a single operator ‘+’ when placed between integer operands , adds them and when placed between string operands, concatenates them.
+```
+// CPP program to illustrate Operator Overloading 
+#include<iostream> 
+using namespace std; 
+
+class Complex { 
+private: 
+	int real, imag; 
+public: 
+	Complex(int r = 0, int i =0) {real = r; imag = i;} 
+	
+	// This is automatically called when '+' is used with 
+	// between two Complex objects 
+	Complex operator + (Complex const &obj) { 
+		Complex res; 
+		res.real = real + obj.real; 
+		res.imag = imag + obj.imag; 
+		return res; 
+	} 
+	void print() { cout << real << " + i" << imag << endl; } 
+}; 
+
+int main() 
+{ 
+	Complex c1(10, 5), c2(2, 4); 
+	Complex c3 = c1 + c2; // An example call to "operator+" 
+	c3.print(); 
+} 
+
+```
+In the above example the operator ‘+’ is overloaded. The operator ‘+’ is an addition operator and can add two numbers(integers or floating point) but here the operator is made to perform addition of two imaginary or complex numbers. 
+
+## operators that cannot be overloaded.
+```
+   . (dot) 
+   :: 
+   ?: 
+   sizeof 
+   ```
+# Runtime polymorphism: https://www.geeksforgeeks.org/virtual-functions-and-runtime-polymorphism-in-c-set-1-introduction/
+This type of polymorphism is achieved by Function Overriding.
+Function overriding on the other hand occurs when a derived class has a definition for one of the member functions of the base class. That base function is said to be overridden.
+
+```
+// C++ program for function overriding 
+
+#include <bits/stdc++.h> 
+using namespace std; 
+
+class base 
+{ 
+public: 
+	virtual void print () 
+	{ cout<< "print base class" <<endl; } 
+
+	void show () 
+	{ cout<< "show base class" <<endl; } 
+}; 
+
+class derived:public base 
+{ 
+public: 
+	void print () //print () is already virtual function in derived class, we could also declared as virtual void print () explicitly 
+	{ cout<< "print derived class" <<endl; } 
+
+	void show () 
+	{ cout<< "show derived class" <<endl; } 
+}; 
+
+int main() 
+{ 
+	base *bptr; 
+	derived d; 
+	bptr = &d; 
+	
+	//virtual function, binded at runtime (Runtime polymorphism) 
+	bptr->print(); 
+	
+	// Non-virtual function, binded at compile time 
+	bptr->show(); 
+
+	return 0; 
+} 
+
+```
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # 11.  What is inheritance and its types?
 
 A subclass can inherit the behaviours and states of its superclass are known as inheritance. There are various types of inheritance:
@@ -611,7 +755,394 @@ Single Inheritance
 Multi-level Inheritance
 Hierarchical Inheritance
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Inheritance - https://www.geeksforgeeks.org/inheritance-in-c/
+The capability of a class to derive properties and characteristics from another class is called Inheritance.
+Inheritance is one of the most important feature of Object Oriented Programming.
 
+## Sub Class: 
+The class that inherits properties from another class is called Sub class or Derived Class.
+## Super Class:
+The class whose properties are inherited by sub class is called Base Class or Super class.
+
+# Why and When to use?
+
+![condition](https://media.geeksforgeeks.org/wp-content/uploads/inheritance.png)
+![Solution](https://media.geeksforgeeks.org/wp-content/uploads/inheritance2.png)
+
+Using inheritance, we have to write the functions only one time instead of three times as we have inherited rest of the three classes from base class(Vehicle).
+
+# Implementing inheritance in C++: 
+For creating a sub-class which is inherited from the base class we have to follow the below syntax.
+Syntax:
+```
+class subclass_name : access_mode base_class_name
+{
+  //body of subclass
+};
+```
+# Access_mode
+![Access Modifier](https://media.geeksforgeeks.org/wp-content/cdn-uploads/table-class.png)
+
+# Types of Inheritance-
+
+## 1. Single Inheritance-
+In single inheritance, a class is allowed to inherit from only one class. i.e. one sub class is inherited by one base class only.
+  
+# Syntax -
+```
+class subclass_name : access_mode base_class
+{
+  //body of subclass
+};
+```
+ ![single inheritance](https://media.geeksforgeeks.org/wp-content/uploads/single-inheritance.png)
+```
+// C++ program to explain  Single inheritance 
+#include <iostream> 
+using namespace std; 
+
+// base class 
+class Vehicle { 
+public: 
+	Vehicle() 
+	{ 
+	cout << "This is a Vehicle" << endl; 
+	} 
+}; 
+
+// sub class derived from two base classes 
+class Car: public Vehicle{ 
+
+}; 
+
+int main() 
+{ 
+	// creating object of sub class will 
+	// invoke the constructor of base classes 
+	Car obj; 
+	return 0; 
+} 
+
+```
+
+## 2. Multiple Inheritance: 
+Multiple Inheritance is a feature of C++ where a class can inherit from more than one classes. i.e one sub class is inherited from more than one base classes.
+
+Syntax:
+```
+class subclass_name : access_mode base_class1, access_mode base_class2, ....
+{
+  //body of subclass
+};
+```
+![multiple](https://www.geeksforgeeks.org/multiple-inheritance-in-c/)
+
+```
+// C++ program to explain  multiple inheritance 
+#include <iostream> 
+using namespace std; 
+
+// first base class 
+class Vehicle { 
+public: 
+	Vehicle() 
+	{ 
+	cout << "This is a Vehicle" << endl; 
+	} 
+}; 
+
+// second base class 
+class FourWheeler { 
+public: 
+	FourWheeler() 
+	{ 
+	cout << "This is a 4 wheeler Vehicle" << endl; 
+	} 
+}; 
+
+// sub class derived from two base classes 
+class Car: public Vehicle, public FourWheeler { 
+
+}; 
+
+int main() 
+{ 
+	// creating object of sub class will 
+	// invoke the constructor of base classes 
+	Car obj; 
+	return 0; 
+} 
+
+```
+## 3. Multilevel Inheritance: 
+In this type of inheritance, a derived class is created from another derived class.
+
+![multilevel](https://media.geeksforgeeks.org/wp-content/uploads/multilevel-inheritance.png)
+
+```
+// C++ program to implement Multilevel Inheritance 
+#include <iostream> 
+using namespace std; 
+
+// base class 
+class Vehicle 
+{ 
+public: 
+	Vehicle() 
+	{ 
+	cout << "This is a Vehicle" << endl; 
+	} 
+}; 
+class fourWheeler: public Vehicle 
+{ public: 
+	fourWheeler() 
+	{ 
+	cout<<"Objects with 4 wheels are vehicles"<<endl; 
+	} 
+}; 
+// sub class derived from two base classes 
+class Car: public fourWheeler{ 
+public: 
+	car() 
+	{ 
+	cout<<"Car has 4 Wheels"<<endl; 
+	} 
+}; 
+
+// main function 
+int main() 
+{ 
+	//creating object of sub class will 
+	//invoke the constructor of base classes 
+	Car obj; 
+	return 0; 
+} 
+```
+## 4. Hierarchical Inheritance: 
+In this type of inheritance, more than one sub class is inherited from a single base class. i.e. more than one derived class is created from a single base class.
+
+![Hierarchical](https://media.geeksforgeeks.org/wp-content/uploads/hierarchical-inheritance.png)
+```
+// C++ program to implement Hierarchical Inheritance 
+#include <iostream> 
+using namespace std; 
+
+// base class 
+class Vehicle 
+{ 
+public: 
+	Vehicle() 
+	{ 
+	cout << "This is a Vehicle" << endl; 
+	} 
+}; 
+
+
+// first sub class 
+class Car: public Vehicle 
+{ 
+
+}; 
+
+// second sub class 
+class Bus: public Vehicle 
+{ 
+	
+}; 
+
+int main() 
+{ 
+	// creating object of sub class will 
+	// invoke the constructor of base class 
+	Car obj1; 
+	Bus obj2; 
+	return 0; 
+} 
+
+```
+
+## 5. Hybrid (Virtual) Inheritance: 
+Hybrid Inheritance is implemented by combining more than one type of inheritance. For example: Combining Hierarchical inheritance and Multiple Inheritance.
+Below image shows the combination of hierarchical and multiple inheritance:
+
+![hybrid](https://media.geeksforgeeks.org/wp-content/uploads/Hybrid-Inheritance.png)
+
+```
+// C++ program for Hybrid Inheritance 
+
+#include <iostream> 
+using namespace std; 
+
+// base class 
+class Vehicle 
+{ 
+public: 
+	Vehicle() 
+	{ 
+	cout << "This is a Vehicle" << endl; 
+	} 
+}; 
+
+//base class 
+class Fare 
+{ 
+	public: 
+	Fare() 
+	{ 
+		cout<<"Fare of Vehicle\n"; 
+	} 
+}; 
+
+// first sub class 
+class Car: public Vehicle 
+{ 
+
+}; 
+
+// second sub class 
+class Bus: public Vehicle, public Fare 
+{ 
+	
+}; 
+int main() 
+{ 
+	// creating object of sub class will 
+	// invoke the constructor of base class 
+	Bus obj2; 
+	return 0; 
+} 
+
+```
+# A special case of hybrid inheritance : Multipath inheritance:
+A derived class with two base classes and these two base classes have one common base class is called multipath inheritance. An ambiguity can arrise in this type of inheritance.
+
+!{multipath](http://www.tutorialdost.com/Cpp-Programming-Tutorial/Images/Multipath-Inheritance-Ambiguity-In-Cpp.png)
+
+```
+// C++ program demonstrating ambiguity in Multipath Inheritance 
+
+#include<iostream.h> 
+#include<conio.h> 
+class ClassA 
+	{ 
+			public: 
+			int a; 
+	}; 
+
+	class ClassB : public ClassA 
+	{ 
+			public: 
+			int b; 
+	}; 
+	class ClassC : public ClassA 
+	{ 
+			public: 
+			int c; 
+	}; 
+
+	class ClassD : public ClassB, public ClassC 
+	{ 
+			public: 
+			int d; 
+	}; 
+
+	void main() 
+	{ 
+
+			ClassD obj; 
+
+			//obj.a = 10;				 //Statement 1, Error 
+			//obj.a = 100;				 //Statement 2, Error 
+
+			obj.ClassB::a = 10;	 //Statement 3 
+			obj.ClassC::a = 100;	 //Statement 4 
+
+			obj.b = 20; 
+			obj.c = 30; 
+			obj.d = 40; 
+
+			cout<< "\n A from ClassB : "<< obj.ClassB::a; 
+			cout<< "\n A from ClassC : "<< obj.ClassC::a; 
+
+			cout<< "\n B : "<< obj.b; 
+			cout<< "\n C : "<< obj.c; 
+			cout<< "\n D : "<< obj.d; 
+
+	} 
+
+```
+
+In the above example, both ClassB & ClassC inherit ClassA, they both have single copy of ClassA. However ClassD inherit both ClassB & ClassC, therefore ClassD have two copies of ClassA, one from ClassB and another from ClassC.
+If we need to access the data member a of ClassA through the object of ClassD, we must specify the path from which a will be accessed, whether it is from ClassB or ClassC, bco’z compiler can’t differentiate between two copies of ClassA in ClassD.
+
+# There are 2 ways to avoid this ambiguity:
+
+Use scope resolution operator
+Use virtual base class
+
+### Avoiding ambiguity using scope resolution operator:
+
+Using scope resolution operator we can manually specify the path from which data member a will be accessed, as shown in statement 3 and 4, in the above example.
+```
+obj.ClassB::a = 10;        //Statement 3 
+obj.ClassC::a = 100;      //Statement 4 
+```
+
+Note : Still, there are two copies of ClassA in ClassD.
+
+### Avoiding ambiguity using virtual base class:
+
+```
+#include<iostream.h> 
+	#include<conio.h> 
+
+	class ClassA 
+	{ 
+			public: 
+			int a; 
+	}; 
+
+	class ClassB : virtual public ClassA 
+	{ 
+			public: 
+			int b; 
+	}; 
+	class ClassC : virtual public ClassA 
+	{ 
+			public: 
+			int c; 
+	}; 
+
+	class ClassD : public ClassB, public ClassC 
+	{ 
+			public: 
+			int d; 
+	}; 
+
+	void main() 
+	{ 
+
+			ClassD obj; 
+
+			obj.a = 10;	 //Statement 3 
+			obj.a = 100;	 //Statement 4 
+
+			obj.b = 20; 
+			obj.c = 30; 
+			obj.d = 40; 
+
+			cout<< "\n A : "<< obj.a; 
+			cout<< "\n B : "<< obj.b; 
+			cout<< "\n C : "<< obj.c; 
+			cout<< "\n D : "<< obj.d; 
+
+	} 
+```
+
+According to the above example, ClassD has only one copy of ClassA, therefore, statement 4 will overwrite the value of a, given at statement 3.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # 12. What is Abstraction?
 
 Abstraction is an OOPs approach to construct the structure of the real-world objects. During the construction, only the general states and behaviours are taken, and more specific states and actions are left aside for the implementers.
