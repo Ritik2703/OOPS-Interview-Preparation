@@ -35,85 +35,11 @@ It follows a bottom-up programming paradigm.
 It is less complicated in nature, so it is easier to modify, extend and maintain.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-# 3. What are the basic concepts of OOPs?
-
-The basic concepts of OOPs are:
-
-Inheritance
-Encapsulation
-Polymorphism
-Abstraction
- 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-# 4. What is Abstraction?
-
-Abstraction is an OOPs approach to construct the structure of the real-world objects. During the construction, only the general states and behaviours are taken, and more specific states and actions are left aside for the implementers.
-
-# 5. What is Encapsulation?
-
-Encapsulation is an OOPs concept to create and define the restrictions and permissions of an object and its member variable and methods. It is very simple to explain the concept is to make the member variables of a class private and providing public getter and setter methods.
-
-# 6. What is Polymorphism?
-
-Polymorphism is an instance of something in various forms. Java supports multiple forms of polymorphism like polymorphic method, polymorphic reference variable, polymorphic return types and polymorphic argument types.
-
-# 7.  What is inheritance and its types?
-
-A subclass can inherit the behaviours and states of its superclass are known as inheritance. There are various types of inheritance:
-
-Hybrid Inheritance
-Multiple Inheritance
-Single Inheritance
-Multi-level Inheritance
-Hierarchical Inheritance
-
-# 8. What is an object, method and class?
+# 3. What is an object, method and class?
 
 Object: An object is an instance of a class. It has its own identity and behaviour.
 Class:  Class is a user-defined data type that contains variables, properties and methods.  It determines the properties of an object.
 Method:  It is a set of instructions, also called a procedure that is to be performed on the given data.
-
-# 9. What is Static Binding and Dynamic Binding?
-
-Static Binding is a binding in which name can be combined with the class during collection time, and it is also called as early binding.
-
-Dynamic Binding is a binding in which name can be identified with the class during execution time, and it is also known as Late Binding
-
-# 10. What are a constructor and its types?
-
-A constructor is a special kind of method that has the same name as the class and is used to initialize objects of that class. Type of constructor differs from language to language:
-
-Private Constructor
-Default Constructor
-Copy Constructor
-Static Constructor
-Parameterized Constructor
-
-# 11. Define overloading and overriding in OOPs?
-
-Overloading is static binding, whereas overriding is productive binding. Overloading is the same method with different arguments, and it may or may not return the equal value in the same class itself.
-Overriding is the same method names with the same arguments and return types identified with the class and its child class.
-
-# 12. What are the access modifiers?
-
-Access modifiers define the scope of the method or variable that can be accessed from other various objects.
-
-# 13. What is an abstract class?
-
-An abstract class cannot be proved. Formation of an object is not possible with an abstract class, but it can be inherited. An abstract class can only contain an abstract method, and java allows only abstract method in abstract class while other languages allow non-abstract method as well.
-
-# 14. What are all the operators that cannot be overloaded?
-
-The operators that cannot be overloaded are:
-
-Member Selection
-Scope Resolution
-Member selection through a pointer to a function
-
-# 15. What does the keyword virtual represented in the method definition?
-
-It represents that we can override the method.
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -241,7 +167,8 @@ int main()
 } 
 ```
 
-# return 0: This statement when executed within the main function calls the destructor of each class for which object was created.
+# return 0: 
+#### This statement when executed within the main function calls the destructor of each class for which object was created.
 # To avoid the Destructor calling we can replace the statement “return 0” with “exit(0)”.
 
 ```
@@ -423,8 +350,18 @@ Memory allocation done at the time of execution(run time) is known as dynamic me
 <p></p>
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# 4. What are a constructor and its types?
 
-# Constructor -
+A constructor is a special kind of method that has the same name as the class and is used to initialize objects of that class. Type of constructor differs from language to language:
+
+Private Constructor
+Default Constructor
+Copy Constructor
+Static Constructor
+Parameterized Constructor
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Constructor - https://www.geeksforgeeks.org/constructors-c/
 
 A constructor is a member function of a class which initializes objects of a class. In C++, Constructor is automatically called when object(instance of class) create. It is special member function of the class.
 
@@ -452,10 +389,10 @@ In C++, a Copy Constructor may be called in following cases:
 
 # Shallow Copy vs Deep Copy-
  Default constructor does only shallow copy.
- ![shallow] (https://media.geeksforgeeks.org/wp-content/uploads/copy-constructor.png)
+ ![shallow](https://media.geeksforgeeks.org/wp-content/uploads/copy-constructor.png)
 
 Deep copy is possible only with user defined copy constructor. In user defined copy constructor, we make sure that pointers (or references) of copied object point to new memory locations.
- ![Deep] (https://media.geeksforgeeks.org/wp-content/uploads/copy-constructor1.png) 
+ ![Deep](https://media.geeksforgeeks.org/wp-content/uploads/copy-constructor1.png) 
 
 # Copy constructor vs Assignment Operator
 Which of the following two statements call copy constructor and which one calls assignment operator?
@@ -508,7 +445,7 @@ so that objects are not accidentally modified
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-# Deconstructor
+# Deconstructor - https://www.geeksforgeeks.org/destructors-c/
 Destructor is a member function which destructs or deletes an object.
 
 ## When is destructor called?
@@ -531,7 +468,7 @@ If we do not write our own destructor in class, compiler creates a default destr
 Yes, In fact, it is always a good idea to make destructors virtual in base class when we have a virtual function.
 Deleting a derived class object using a pointer to a base class that has a non-virtual destructor results in undefined behavior. To correct this situation, the base class should be defined with a virtual destructor.
 
-'''
+```
 // A program with virtual destructor 
 #include<iostream> 
 
@@ -562,10 +499,137 @@ getchar();
 return 0; 
 } 
 ```
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# 5. What are the basic concepts of OOPs?
 
-------------------------------------------------------------------------------------------------------------------------------------------------
+The basic concepts of OOPs are:
+1. Encapsulation
+2. Polymorphism
+3. Inheritance
+4. Abstraction
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+# 6. What is Encapsulation? - https://www.geeksforgeeks.org/encapsulation-in-c/
 
- 
-    
- 
+Encapsulation is defined as wrapping up of data and information under a single unit. In Object Oriented Programming, Encapsulation is defined as binding together the data and the functions that manipulates them.
+Encapsulation is an OOPs concept to create and define the restrictions and permissions of an object and its member variable and methods. It is very simple to explain the concept is to make the member variables of a class private and providing public getter and setter methods.
+Encapsulation also lead to data abstraction or hiding. As using encapsulation also hides the data
+
+```
+// c++ program to explain Encapsulation 
+
+#include<iostream> 
+using namespace std; 
+
+class Encapsulation 
+{ 
+	private: 
+		// data hidden from outside world 
+		int x; 
+		
+	public: 
+		// function to set value of 
+		// variable x 
+		void set(int a) 
+		{ 
+			x =a; 
+		} 
+		
+		// function to return value of 
+		// variable x 
+		int get() 
+		{ 
+			return x; 
+		} 
+}; 
+int main() 
+{ 
+	Encapsulation obj; 
+	
+	obj.set(5); 
+	
+	cout<<obj.get(); 
+	return 0; 
+} 
+```
+In the above program the variable x is made private. This variable can be accessed and manipulated only using the functions get() and set() which are present inside the class. Thus we can say that here, the variable x and the functions get() and set() are binded together which is nothing but encapsulation.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+# 7. What are the access modifiers? - https://www.geeksforgeeks.org/access-modifiers-in-c/
+
+Access modifiers define the scope of the method or variable that can be accessed from other various objects.
+Access modifiers are used to implement an important feature of Object-Oriented Programming known as Data Hiding.
+There are 3 types of access modifiers available in C++:
+
+Public
+Private
+Protected
+
+# Public: 
+All the class members declared under public will be available to everyone. The data members and member functions declared public can be accessed by other classes too. The public members of a class can be accessed from anywhere in the program using the direct member access operator (.) with the object of that class.
+# Private: 
+The class members declared as private can be accessed only by the functions inside the class. They are not allowed to be accessed directly by any object or function outside the class. Only the member functions or the friend functions are allowed to access the private data members of a class.
+# Protected:
+Protected: Protected access modifier is similar to that of private access modifiers, the difference is that the class member declared as Protected are inaccessible outside the class but they can be accessed by any subclass(derived class) of that class.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# 8. What is Polymorphism? - https://www.geeksforgeeks.org/polymorphism-in-c/
+The word polymorphism means having many forms. In simple words, we can define polymorphism as the ability of a message to be displayed in more than one form.
+In C++ polymorphism is mainly divided into two types:
+
+Compile time Polymorphism
+Runtime Polymorphism
+
+![polymorphism](https://media.geeksforgeeks.org/wp-content/uploads/20200703160531/Polymorphism-in-CPP.png)
+
+# Compile time Polymorphism
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# 9. Define overloading and overriding in OOPs?
+
+Overloading is static binding, whereas overriding is productive binding. Overloading is the same method with different arguments, and it may or may not return the equal value in the same class itself.
+Overriding is the same method names with the same arguments and return types identified with the class and its child class.
+
+# 10. What are all the operators that cannot be overloaded?
+
+The operators that cannot be overloaded are:
+
+Member Selection
+Scope Resolution
+Member selection through a pointer to a function
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# 11.  What is inheritance and its types?
+
+A subclass can inherit the behaviours and states of its superclass are known as inheritance. There are various types of inheritance:
+
+Hybrid Inheritance
+Multiple Inheritance
+Single Inheritance
+Multi-level Inheritance
+Hierarchical Inheritance
+
+
+# 12. What is Abstraction?
+
+Abstraction is an OOPs approach to construct the structure of the real-world objects. During the construction, only the general states and behaviours are taken, and more specific states and actions are left aside for the implementers.
+
+
+# 13. What does the keyword virtual represented in the method definition?
+
+It represents that we can override the method.
+
+# 14. What is Static Binding and Dynamic Binding?
+
+Static Binding is a binding in which name can be combined with the class during collection time, and it is also called as early binding.
+
+Dynamic Binding is a binding in which name can be identified with the class during execution time, and it is also known as Late Binding
+
+# 15. What is an abstract class?
+
+An abstract class cannot be proved. Formation of an object is not possible with an abstract class, but it can be inherited. An abstract class can only contain an abstract method, and java allows only abstract method in abstract class while other languages allow non-abstract method as well.
+
+
 
