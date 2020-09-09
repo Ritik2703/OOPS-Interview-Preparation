@@ -1,4 +1,4 @@
-# OOPS-Interview-Preparation
+# OOPS-Interview-Preparation in CPP
 # Hare Krishna
 # Radhe Radhe
 
@@ -13,7 +13,15 @@
 # Access Modifier
 # Polymorphism
 # Inheritance
-# 
+# Abstraction
+# friend function
+# Virtual keyword
+# Early binding vs late binding
+# Pure Virtual function 
+# Abstract Class
+# Interface
+# this keyword
+# Exception Handling
 
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -836,7 +844,7 @@ class subclass_name : access_mode base_class1, access_mode base_class2, ....
   //body of subclass
 };
 ```
-![multiple](https://www.geeksforgeeks.org/multiple-inheritance-in-c/)
+![multiple](https://media.geeksforgeeks.org/wp-content/uploads/multiple-inheritance.png)
 
 ```
 // C++ program to explain  multiple inheritance 
@@ -1017,7 +1025,7 @@ int main()
 # A special case of hybrid inheritance : Multipath inheritance:
 A derived class with two base classes and these two base classes have one common base class is called multipath inheritance. An ambiguity can arrise in this type of inheritance.
 
-!{multipath](http://www.tutorialdost.com/Cpp-Programming-Tutorial/Images/Multipath-Inheritance-Ambiguity-In-Cpp.png)
+![multipath](http://www.tutorialdost.com/Cpp-Programming-Tutorial/Images/Multipath-Inheritance-Ambiguity-In-Cpp.png)
 
 ```
 // C++ program demonstrating ambiguity in Multipath Inheritance 
@@ -1094,7 +1102,7 @@ Note : Still, there are two copies of ClassA in ClassD.
 ### Avoiding ambiguity using virtual base class:
 
 ```
-#include<iostream.h> 
+        #include<iostream.h> 
 	#include<conio.h> 
 
 	class ClassA 
@@ -1143,24 +1151,266 @@ Note : Still, there are two copies of ClassA in ClassD.
 According to the above example, ClassD has only one copy of ClassA, therefore, statement 4 will overwrite the value of a, given at statement 3.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# 12. What is Abstraction?
+# 12. What is Abstraction? - https://www.geeksforgeeks.org/abstraction-in-c/
 
+Abstraction means displaying only essential information and hiding the details. Data abstraction refers to providing only essential information about the data to the outside world, hiding the background details or implementation.
 Abstraction is an OOPs approach to construct the structure of the real-world objects. During the construction, only the general states and behaviours are taken, and more specific states and actions are left aside for the implementers.
 
+### Abstraction using Classes: 
+We can implement Abstraction in C++ using classes. Class helps us to group data members and member functions using available access specifiers. A Class can decide which data member will be visible to outside world and which is not.
 
+### Abstraction in Header files: 
+One more type of abstraction in C++ can be header files. For example, consider the pow() method present in math.h header file. Whenever we need to calculate power of a number, we simply call the function pow() present in the math.h header file and pass the numbers as arguments without knowing the underlying algorithm according to which the function is actually calculating power of numbers.
+
+### Abstraction using access specifiers
+Access specifiers are the main pillar of implementing abstraction in C++. We can use access specifiers to enforce restrictions on class members. For example:
+
+
+## Advantages of Data Abstraction:
+
+Helps the user to avoid writing the low level code
+Avoids code duplication and increases reusability.
+Can change internal implementation of class independently without affecting the user.
+Helps to increase security of an application or program as only important details are provided to the user.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # 13. What does the keyword virtual represented in the method definition?
-
-It represents that we can override the method.
+  It represents that we can override the method.
 
 # 14. What is Static Binding and Dynamic Binding?
-
 Static Binding is a binding in which name can be combined with the class during collection time, and it is also called as early binding.
 
 Dynamic Binding is a binding in which name can be identified with the class during execution time, and it is also known as Late Binding
 
 # 15. What is an abstract class?
-
 An abstract class cannot be proved. Formation of an object is not possible with an abstract class, but it can be inherited. An abstract class can only contain an abstract method, and java allows only abstract method in abstract class while other languages allow non-abstract method as well.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Virtual Function- https://www.geeksforgeeks.org/virtual-function-cpp/
+
+A virtual function is a member function which is declared within a base class and is re-defined(Overriden) by a derived class. When you refer to a derived class object using a pointer or a reference to the base class, you can call a virtual function for that object and execute the derived class’s version of the function.
+
+```
+// CPP program to illustrate concept of Virtual Functions 
+
+#include <iostream> 
+using namespace std; 
+
+class base { 
+public: 
+	virtual void print() 
+	{ 
+		cout << "print base class" << endl; 
+	} 
+
+	void show() 
+	{ 
+		cout << "show base class" << endl; 
+	} 
+}; 
+
+class derived : public base { 
+public: 
+	void print() 
+	{ 
+		cout << "print derived class" << endl; 
+	} 
+
+	void show() 
+	{ 
+		cout << "show derived class" << endl; 
+	} 
+}; 
+
+int main() 
+{ 
+	base* bptr; 
+	derived d; 
+	bptr = &d; 
+
+	// virtual function, binded at runtime 
+	bptr->print(); 
+
+	// Non-virtual function, binded at compile time 
+	bptr->show(); 
+} 
+
+```
+Late binding(Runtime) is done in accordance with the content of pointer (i.e. location pointed to by pointer) and Early binding(Compile time) is done according to the type of pointer, since print() function is declared with virtual keyword so it will be bound at run-time (output is print derived class as pointer is pointing to object of derived class ) and show() is non-virtual so it will be bound during compile time(output is show base class as pointer is of base type ).
+
+# Working of virtual functions(concept of VTABLE and VPTR)
+
+If a class contains a virtual function then compiler itself does two things:
+
+1. If object of that class is created then a virtual pointer(VPTR) is inserted as a data member of the class to point to VTABLE of that class. For each new object created, a new virtual pointer is inserted as a data member of that class.
+2. Irrespective of object is created or not, a static array of function pointer called VTABLE where each cell contains the address of each virtual function contained in that class.
+![vf](https://media.geeksforgeeks.org/wp-content/uploads/VirtualFunctionInC.png)
+
+```
+// CPP program to illustrate working of Virtual Functions 
+#include <iostream> 
+using namespace std; 
+
+class base { 
+public: 
+	void fun_1() { cout << "base-1\n"; } 
+	virtual void fun_2() { cout << "base-2\n"; } 
+	virtual void fun_3() { cout << "base-3\n"; } 
+	virtual void fun_4() { cout << "base-4\n"; } 
+}; 
+
+class derived : public base { 
+public: 
+	void fun_1() { cout << "derived-1\n"; } 
+	void fun_2() { cout << "derived-2\n"; } 
+	void fun_4(int x) { cout << "derived-4\n"; } 
+}; 
+
+int main() 
+{ 
+	base* p; 
+	derived obj1; 
+	p = &obj1; 
+
+	// Early binding because fun1() is non-virtual in base 
+	p->fun_1();  //base-1
+
+	// Late binding (RTP) 
+	p->fun_2();  //derived-2
+
+	// Late binding (RTP) 
+	p->fun_3(); // base-3
+
+	// Late binding (RTP) 
+	p->fun_4(); //base-4
+
+	// Early binding but this function call is 
+	// illegal(produces error) becasue pointer 
+	// is of base type and function is of 
+	// derived class 
+	// p->fun_4(5); 
+} 
+```
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Pure Virtual Function- https://www.geeksforgeeks.org/pure-virtual-functions-and-abstract-classes/
+
+A pure virtual function (or abstract function) in C++ is a virtual function for which we don’t have implementation, we only declare it. A pure virtual function is declared by assigning 0 in declaration.
+
+```
+// An abstract class 
+class Test 
+{    
+    // Data members of class 
+public: 
+    // Pure Virtual Function 
+    virtual void show() = 0; 
+    
+   /* Other members */
+}; 
+
+```
+
+# Abstract Class -
+
+Sometimes implementation of all function cannot be provided in a base class because we don’t know the implementation. Such a class is called abstract class. For example, let Shape be a base class. We cannot provide implementation of function draw() in Shape, but we know every derived class must have implementation of draw(). Similarly an Animal class doesn’t have implementation of move() (assuming that all animals move), but all animals must know how to move. We cannot create objects of abstract classes.
+
+```
+#include<iostream> 
+using namespace std; 
+
+class Base 
+{ 
+int x; 
+public: 
+	virtual void fun() = 0; 
+	int getX() { return x; } 
+}; 
+
+// This class inherits from Base and implements fun() 
+class Derived: public Base 
+{ 
+	int y; 
+public: 
+	void fun() { cout << "fun() called"; } 
+}; 
+
+int main(void) 
+{ 
+	Derived d; 
+	d.fun(); 
+	return 0; 
+} 
+```
+
+# Some Intersting Facts-
+
+1. A class is abstract if it has at least one pure virtual function.
+2. We can have pointers and references of abstract class type.
+3. If we do not override the pure virtual function in derived class, then derived class also becomes abstract class.
+4. An abstract class can have constructors.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Interface vs Abstract Classes:
+An interface does not have implementation of any of its methods, it can be considered as a collection of method declarations. In C++, an interface can be simulated by making all methods as pure virtual. In Java, there is a separate keyword for interface.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Friend Class and Friend Function - https://www.geeksforgeeks.org/friend-class-function-cpp/
+
+## Friend Class 
+A friend class can access private and protected members of other class in which it is declared as friend. It is sometimes useful to allow a particular class to access private members of other class
+For example a LinkedList class may be allowed to access private members of Node.
+```
+class Node { 
+private: 
+    int key; 
+    Node* next; 
+    /* Other members of Node Class */
+  
+    // Now class  LinkedList can 
+    // access private members of Node 
+    friend class LinkedList; 
+}; 
+```
+
+## Friend Function
+Like friend class, a friend function can be given special grant to access private and protected members. A friend function can be:
+a) A method of another class
+b) A global function
+
+```
+class Node { 
+private: 
+	int key; 
+	Node* next; 
+
+	/* Other members of Node Class */
+	friend int LinkedList::search(); 
+	// Only search() of linkedList 
+	// can access internal members 
+}; 
+
+```
+## Following are some important points about friend functions and classes:
+1) Friends should be used only for limited purpose. too many functions or external classes are declared as friends of a class with protected or private data, it lessens the value of encapsulation of separate classes in object-oriented programming.
+
+2) Friendship is not mutual. If class A is a friend of B, then B doesn’t become a friend of A automatically.
+
+3) Friendship is not inherited
+
+4) The concept of friends is not there in Java.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# This Pointer -
+
+
+
+# Inline function-
+
+
+
+
 
 
 
