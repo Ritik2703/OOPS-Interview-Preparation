@@ -1403,14 +1403,45 @@ private:
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # This Pointer -
+1. This is a keyword.
+2. This is a local object pointer in every instance member function containing addess of the caller object.
+3. This pointer can not modify.
+4. It is used to refer caller object in member function
 
-
-
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Inline function-
 
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Reference Varaibles-
+1. Reference means Address.
+2. Reference Variable is an Internal Pointer.
+3. Declaration of Reference variable is preceded with an '&'  symbol (but don't read it as Address of).
+4. RV must be initialized during declaration.
+5. It can be initialized with already declared variables only.
+6. RV can not be updated.
 
+int x=5;
+int *p; //pointer
+p=&x;
+int &y=x; // reference variables
 
-
+```
+# include<iostrean>
+using namespace std;
+void swap(int &x,int &y)
+{
+	x= x+y - (y=x);
+}
+int main()
+{
+   fast
+   int a=5;
+   int b=7;
+   swap(a,b); // pass by reference
+   cout<<a<<" "<<b;
+   return 0;
+}
+```
 
 
